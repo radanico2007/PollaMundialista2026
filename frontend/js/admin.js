@@ -122,7 +122,7 @@ valor
 ){
 
 await fetch(
-"http://localhost:3000/api/admin/resultado",
+"https://pollamundialista2026.onrender.com/api/admin/resultado",
 {
 method:"POST",
 headers:{
@@ -183,7 +183,7 @@ document.getElementById(c).value
 }
 
 await fetch(
-"http://localhost:3000/api/admin/recalcular",
+"https://pollamundialista2026.onrender.com/api/admin/recalcular",
 {
 method:"POST"
 }

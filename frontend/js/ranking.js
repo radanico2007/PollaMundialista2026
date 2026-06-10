@@ -2,7 +2,7 @@ async function cargar(){
 
 const r =
 await fetch(
-"http://localhost:3000/api/ranking"
+"https://pollamundialista2026.onrender.com/api/ranking"
 );
 
 const datos =

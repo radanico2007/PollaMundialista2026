@@ -1,7 +1,7 @@
 async function cargar(){
 
 const r = await fetch(
-"http://localhost:3000/api/predicciones"
+"https://pollamundialista2026.onrender.com/api/predicciones"
 );
 
 const datos = await r.json();

@@ -270,7 +270,7 @@ return;
 }
 
 const r = await fetch(
-"http://localhost:3000/api/register",
+"https://pollamundialista2026.onrender.com/api/register",
 {
 method:"POST",
 headers:{

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1">
+
+<title>Administrador</title>
+
+<link rel="stylesheet"
+href="css/style.css">
+
+</head>
+<body>
+
+<div id="loginAdmin">
+
+<h1>Acceso Administrador</h1>
+
+<input
+type="password"
+id="passwordAdmin"
+placeholder="Contraseña">
+
+<button onclick="entrarAdmin()">
+Entrar
+</button>
+
+</div>
+
+<div
+id="contenidoAdmin"
+style="display:none;">
+
+<div class="menu">
+
+<a href="index.html">Predicciones</a>
+
+<a href="ranking.html">Ranking</a>
+
+<a href="predicciones.html">Ver Predicciones</a>
+
+<a href="admin.html">Administrador</a>
+
+</div>
+
+<h1>Administrador</h1>
+
+<div id="adminResultados">
+
+</div>
+
+<button onclick="guardarResultados()">
+Guardar Resultados Oficiales
+</button>
+
+</div>
+
+<script src="js/admin.js"></script>
+
+</body>
+</html>

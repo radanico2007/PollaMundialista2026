@@ -2,7 +2,7 @@ async function cargarEstadisticas(){
 
 const r =
 await fetch(
-"https://pollamundialista2026.onrender.com/api/predicciones"
+"https://pollamundialista2026-api.onrender.com/api/register"
 );
 
 const datos =

@@ -18,12 +18,10 @@ app.use("/api/admin", admin);
 setInterval(() => {
 
 try{
-
 fs.copyFileSync(
 "./database/polla.db",
 `./database/backup-${Date.now()}.db`
 );
-
 }catch(e){}
 
 },600000);
@@ -31,7 +29,5 @@ fs.copyFileSync(
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-
 console.log(`Servidor iniciado en puerto ${PORT}`);
-
 });

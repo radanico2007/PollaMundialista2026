@@ -2,7 +2,7 @@ async function cargarEstadisticas(){
 
 const r =
 await fetch(
-"https://pollamundialista2026-api.onrender.com/api/estadisticas"
+"https://pollamundialista2026-api.onrender.com/api/predicciones"
 );
 
 const datos =
@@ -12,13 +12,10 @@ let campeones={};
 
 datos.forEach(j=>{
 
-const p =
-JSON.parse(j.predicciones);
+const p = JSON.parse(j.predicciones);
 
 if(!campeones[p.campeon]){
-
 campeones[p.campeon]=0;
-
 }
 
 campeones[p.campeon]++;
@@ -31,26 +28,17 @@ let votos=0;
 for(const equipo in campeones){
 
 if(campeones[equipo]>votos){
-
-votos=
-campeones[equipo];
-
-favorito=
-equipo;
-
+votos=campeones[equipo];
+favorito=equipo;
 }
 
 }
 
-document.getElementById(
-"estadisticas"
-).innerHTML=
-
+document.getElementById("estadisticas").innerHTML=
 `
 📊 Participantes: ${datos.length}
 <br><br>
-🏆 Favorito al título:
-${favorito || "Sin datos"}
+🏆 Favorito al título: ${favorito || "Sin datos"}
 <br>
 (${votos} votos)
 `;

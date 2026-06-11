@@ -1,16 +1,11 @@
+const API_BASE = "https://pollamundialista2026-api.onrender.com";
+
 async function cargar(){
 
-const r =
-await fetch(
-"https://pollamundialista2026-api.onrender.com/api/ranking"
-);
+const r = await fetch(`${API_BASE}/api/ranking`);
+const datos = await r.json();
 
-const datos =
-await r.json();
-
-const tbody =
-document.querySelector("#tabla tbody");
-
+const tbody = document.querySelector("#tabla tbody");
 tbody.innerHTML="";
 
 datos.forEach((j,i)=>{

@@ -1,19 +1,18 @@
+const API_BASE = "https://pollamundialista2026-api.onrender.com";
+
 async function cargar(){
 
-const r = await fetch(
-"https://pollamundialista2026-api.onrender.com/api/predicciones"
-);
-
+const r = await fetch(`${API_BASE}/api/predicciones`);
 const datos = await r.json();
 
-const contenedor =
-document.getElementById("contenedor");
-
+const contenedor = document.getElementById("contenedor");
 contenedor.innerHTML="";
 
 datos.forEach(j=>{
 
-const p = JSON.parse(j.predicciones);
+const p = typeof j.predicciones === "string"
+? JSON.parse(j.predicciones)
+: j.predicciones;
 
 let html=`
 <div class="card">
@@ -37,9 +36,7 @@ const letras=["A","B","C","D","E","F","G","H","I","J","K","L"];
 
 letras.forEach(g=>{
 html+=`
-<p>
-Grupo ${g}: ${p[`grupo${g}1`]||"-"} / ${p[`grupo${g}2`]||"-"}
-</p>
+<p>Grupo ${g}: ${p[`grupo${g}1`]||"-"} / ${p[`grupo${g}2`]||"-"}</p>
 `;
 });
 

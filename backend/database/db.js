@@ -1,31 +1,41 @@
-const sqlite3 = require("sqlite3").verbose();
-const path = require("path");
+const { Pool } = require("pg");
 
-const db = new sqlite3.Database(
-path.join(__dirname,"polla.db")
-);
+const pool = new Pool({
+connectionString: process.env.DATABASE_URL,
+ssl: {
+rejectUnauthorized: false
+}
+});
 
-db.serialize(()=>{
+async function iniciar() {
 
-db.run(`
+await pool.query(`
+
 CREATE TABLE IF NOT EXISTS participants (
-id INTEGER PRIMARY KEY AUTOINCREMENT,
+id BIGSERIAL PRIMARY KEY,
 nombre TEXT UNIQUE,
 apodo TEXT,
-predicciones TEXT,
+predicciones JSONB,
 puntos INTEGER DEFAULT 0,
-fecha DATETIME DEFAULT CURRENT_TIMESTAMP
+fecha TIMESTAMP DEFAULT NOW()
 )
+
 `);
 
-db.run(`
+await pool.query(`
+
 CREATE TABLE IF NOT EXISTS resultados (
-id INTEGER PRIMARY KEY AUTOINCREMENT,
+id BIGSERIAL PRIMARY KEY,
 clave TEXT UNIQUE,
 valor TEXT
 )
+
 `);
 
-});
+console.log("PostgreSQL conectado");
 
-module.exports=db;
+}
+
+iniciar();
+
+module.exports = pool;

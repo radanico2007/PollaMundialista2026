@@ -3,82 +3,88 @@ const router = express.Router();
 
 const db = require("../database/db");
 
-router.post("/resultado",(req,res)=>{
+router.post("/resultado", async(req,res)=>{
+
+try{
 
 const {clave,valor}=req.body;
 
-db.run(
+await db.query(
 `
-INSERT OR REPLACE INTO resultados
-(clave,valor)
-VALUES(?,?)
+INSERT INTO resultados(clave,valor)
+VALUES($1,$2)
+ON CONFLICT(clave)
+DO UPDATE SET valor=EXCLUDED.valor
 `,
-[clave,valor],
-(err)=>{
-
-if(err){
-
-return res
-.status(500)
-.json(err);
-
-}
-
-res.json({
-ok:true
-});
-
-}
+[clave,valor]
 );
 
-});
+res.json({ok:true});
 
-router.get("/resultados",(req,res)=>{
+}catch(err){
 
-db.all(
-"SELECT * FROM resultados",
-[],
-(err,rows)=>{
-
-res.json(rows);
+res.status(500).json(err);
 
 }
-);
 
 });
 
-router.post("/recalcular",(req,res)=>{
+router.get("/resultados", async(req,res)=>{
 
-db.all(
+try{
+
+const datos =
+await db.query(
 `
 SELECT *
 FROM resultados
-`,
-[],
-(err,resultados)=>{
+`
+);
+
+res.json(datos.rows);
+
+}catch(err){
+
+res.status(500).json(err);
+
+}
+
+});
+
+router.post("/recalcular", async(req,res)=>{
+
+try{
+
+const resultados =
+await db.query(
+`
+SELECT *
+FROM resultados
+`
+);
 
 const oficial={};
 
-resultados.forEach(r=>{
+resultados.rows.forEach(r=>{
 
 oficial[r.clave]=r.valor;
 
 });
 
-db.all(
+const usuarios =
+await db.query(
 `
 SELECT *
 FROM participants
-`,
-[],
-(err,usuarios)=>{
+`
+);
 
-usuarios.forEach(u=>{
+for(const u of usuarios.rows){
 
 const p =
-JSON.parse(
-u.predicciones
-);
+typeof u.predicciones==="string"
+? JSON.parse(u.predicciones)
+: u.predicciones;
 
 let puntos=0;
 
@@ -94,108 +100,45 @@ if(
 p[`grupo${g}1`]===
 oficial[`grupo${g}1`]
 ){
-
 puntos+=10;
-
 }
 
 if(
 p[`grupo${g}2`]===
 oficial[`grupo${g}2`]
 ){
-
 puntos+=10;
-
 }
 
 });
 
-if(
-p.campeon===
-oficial.campeon
-){
+if(p.campeon===oficial.campeon) puntos+=50;
+if(p.subcampeon===oficial.subcampeon) puntos+=35;
+if(p.tercero===oficial.tercero) puntos+=25;
+if(p.cuarto===oficial.cuarto) puntos+=20;
 
-puntos+=50;
+if(p.balonoro===oficial.balonoro) puntos+=15;
+if(p.botaoro===oficial.botaoro) puntos+=15;
+if(p.guanteoro===oficial.guanteoro) puntos+=15;
 
-}
-
-if(
-p.subcampeon===
-oficial.subcampeon
-){
-
-puntos+=35;
-
-}
-
-if(
-p.tercero===
-oficial.tercero
-){
-
-puntos+=25;
-
-}
-
-if(
-p.cuarto===
-oficial.cuarto
-){
-
-puntos+=20;
-
-}
-
-if(
-p.balonoro===
-oficial.balonoro
-){
-
-puntos+=15;
-
-}
-
-if(
-p.botaoro===
-oficial.botaoro
-){
-
-puntos+=15;
-
-}
-
-if(
-p.guanteoro===
-oficial.guanteoro
-){
-
-puntos+=15;
-
-}
-
-db.run(
+await db.query(
 `
 UPDATE participants
-SET puntos=?
-WHERE id=?
+SET puntos=$1
+WHERE id=$2
 `,
-[
-puntos,
-u.id
-]
-);
-
-});
-
-res.json({
-ok:true
-});
-
-}
+[puntos,u.id]
 );
 
 }
-);
+
+res.json({ok:true});
+
+}catch(err){
+
+res.status(500).json(err);
+
+}
 
 });
 

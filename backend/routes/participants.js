@@ -3,7 +3,9 @@ const router = express.Router();
 
 const db = require("../database/db");
 
-router.post("/register",(req,res)=>{
+router.post("/register", async (req,res)=>{
+
+try{
 
 const {
 nombre,
@@ -11,114 +13,115 @@ apodo,
 predicciones
 }=req.body;
 
-console.log("NUEVO REGISTRO");
-console.log(nombre);
-console.log(apodo);
-console.log(JSON.stringify(predicciones));
-
-db.get(
+const existe =
+await db.query(
 `
 SELECT id
 FROM participants
-WHERE nombre=?
+WHERE nombre=$1
 `,
-[nombre],
-(err,row)=>{
+[nombre]
+);
 
-if(row){
+if(existe.rows.length){
 
-return res
-.status(400)
-.json({
+return res.status(400).json({
 error:"Ya registrado"
 });
 
 }
 
-db.run(
+await db.query(
 `
 INSERT INTO participants
 (nombre,apodo,predicciones,puntos)
-VALUES(?,?,?,0)
+VALUES($1,$2,$3,0)
 `,
 [
 nombre,
 apodo,
 JSON.stringify(predicciones)
-],
-function(err){
-
-if(err){
-
-return res
-.status(500)
-.json(err);
-
-}
+]
+);
 
 res.json({
 ok:true
 });
 
-}
-);
+}catch(err){
+
+res.status(500).json(err);
 
 }
-);
 
 });
 
-router.get("/predicciones",(req,res)=>{
+router.get("/predicciones", async(req,res)=>{
 
-db.all(
+try{
+
+const datos =
+await db.query(
 `
 SELECT *
 FROM participants
 ORDER BY nombre
-`,
-[],
-(err,rows)=>{
+`
+);
 
-res.json(rows);
+res.json(datos.rows);
+
+}catch(err){
+
+res.status(500).json(err);
 
 }
-);
 
 });
 
-router.get("/ranking",(req,res)=>{
+router.get("/ranking", async(req,res)=>{
 
-db.all(
+try{
+
+const datos =
+await db.query(
 `
 SELECT *
 FROM participants
 ORDER BY puntos DESC
-`,
-[],
-(err,rows)=>{
+`
+);
 
-res.json(rows);
+res.json(datos.rows);
+
+}catch(err){
+
+res.status(500).json(err);
 
 }
-);
 
 });
 
-router.get("/total",(req,res)=>{
+router.get("/total", async(req,res)=>{
 
-db.get(
+try{
+
+const datos =
+await db.query(
 `
 SELECT COUNT(*) as total
 FROM participants
-`,
-[],
-(err,row)=>{
+`
+);
 
-res.json(row);
+res.json(datos.rows[0]);
+
+}catch(err){
+
+res.status(500).json(err);
 
 }
-);
 
 });
 
-module.exports=router;
+module.exports = router;

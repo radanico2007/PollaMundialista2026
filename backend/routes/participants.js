@@ -11,6 +11,11 @@ apodo,
 predicciones
 }=req.body;
 
+console.log("NUEVO REGISTRO");
+console.log(nombre);
+console.log(apodo);
+console.log(JSON.stringify(predicciones));
+
 db.get(
 `
 SELECT id

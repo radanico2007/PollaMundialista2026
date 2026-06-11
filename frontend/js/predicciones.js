@@ -1,10 +1,12 @@
 async function cargar(){
 
+try{
+
 const r = await fetch(`${window.API_BASE}/api/predicciones`);
 const datos = await r.json();
 
 const contenedor = document.getElementById("contenedor");
-contenedor.innerHTML="";
+contenedor.innerHTML = "";
 
 datos.forEach(j=>{
 
@@ -12,22 +14,27 @@ const p = typeof j.predicciones === "string"
 ? JSON.parse(j.predicciones)
 : j.predicciones;
 
-let html=`<div class="card">
+let html = `
+<div class="card">
 <h2>${j.nombre}</h2>
-<p>${j.apodo}</p>
-<p>Puntos: ${j.puntos}</p>
+<p><b>Apodo:</b> ${j.apodo}</p>
+<p><b>Puntos:</b> ${j.puntos}</p>
+
+<h3>Fase Final</h3>
+<p>🏆 Campeón: ${p.campeon||"-"}</p>
+<p>🥈 Subcampeón: ${p.subcampeon||"-"}</p>
+<p>🥉 Tercero: ${p.tercero||"-"}</p>
+<p>4️⃣ Cuarto: ${p.cuarto||"-"}</p>
+</div>
 `;
 
-const letras=["A","B","C","D","E","F","G","H","I","J","K","L"];
-
-letras.forEach(g=>{
-html+=`<p>Grupo ${g}: ${p[`grupo${g}1`]||"-"} / ${p[`grupo${g}2`]||"-"}</p>`;
-});
-
-html+=`</div>`;
-contenedor.innerHTML+=html;
+contenedor.innerHTML += html;
 
 });
+
+}catch(e){
+console.log(e);
+}
 
 }
 

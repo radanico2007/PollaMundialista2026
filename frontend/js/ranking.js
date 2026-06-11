@@ -1,21 +1,23 @@
 async function cargar(){
 
+try{
+
 const r = await fetch(`${window.API_BASE}/api/ranking`);
 const datos = await r.json();
 
 const tbody = document.querySelector("#tabla tbody");
-tbody.innerHTML="";
+tbody.innerHTML = "";
 
 datos.forEach((j,i)=>{
 
-let medalla="";
-let clase="";
+let medalla = "";
+let clase = "";
 
-if(i===0) medalla="🥇", clase="oro";
-else if(i===1) medalla="🥈", clase="plata";
-else if(i===2) medalla="🥉", clase="bronce";
+if(i===0){ medalla="🥇"; clase="oro"; }
+else if(i===1){ medalla="🥈"; clase="plata"; }
+else if(i===2){ medalla="🥉"; clase="bronce"; }
 
-tbody.innerHTML+=`
+tbody.innerHTML += `
 <tr class="${clase}">
 <td>${medalla} ${i+1}</td>
 <td>${j.nombre}</td>
@@ -25,6 +27,10 @@ tbody.innerHTML+=`
 `;
 
 });
+
+}catch(e){
+console.log(e);
+}
 
 }
 

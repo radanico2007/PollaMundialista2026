@@ -2,7 +2,7 @@ async function cargarLider(){
 
 const r =
 await fetch(
-"https://pollamundialista2026-api.onrender.com/api/register"
+"https://pollamundialista2026-api.onrender.com/api/lider"
 );
 
 const datos =

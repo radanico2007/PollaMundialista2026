@@ -1,8 +1,11 @@
 const sqlite3 = require("sqlite3").verbose();
+const path = require("path");
 
-const db = new sqlite3.Database("./database/polla.db");
+const db = new sqlite3.Database(
+path.join(__dirname,"polla.db")
+);
 
-db.serialize(() => {
+db.serialize(()=>{
 
 db.run(`
 CREATE TABLE IF NOT EXISTS participants (
@@ -25,4 +28,4 @@ valor TEXT
 
 });
 
-module.exports = db;
+module.exports=db;

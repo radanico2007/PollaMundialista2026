@@ -11,9 +11,9 @@ datos.forEach((j,i)=>{
 let medalla="";
 let clase="";
 
-if(i===0){ medalla="🥇"; clase="oro"; }
-else if(i===1){ medalla="🥈"; clase="plata"; }
-else if(i===2){ medalla="🥉"; clase="bronce"; }
+if(i===0) medalla="🥇", clase="oro";
+else if(i===1) medalla="🥈", clase="plata";
+else if(i===2) medalla="🥉", clase="bronce";
 
 tbody.innerHTML+=`
 <tr class="${clase}">

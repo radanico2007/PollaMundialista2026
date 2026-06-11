@@ -12,11 +12,10 @@ const p = typeof j.predicciones === "string"
 ? JSON.parse(j.predicciones)
 : j.predicciones;
 
-let html=`
-<div class="card">
+let html=`<div class="card">
 <h2>${j.nombre}</h2>
-<p><b>Apodo:</b> ${j.apodo}</p>
-<p><b>Puntos:</b> ${j.puntos}</p>
+<p>${j.apodo}</p>
+<p>Puntos: ${j.puntos}</p>
 `;
 
 const letras=["A","B","C","D","E","F","G","H","I","J","K","L"];

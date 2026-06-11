@@ -28,17 +28,12 @@ favorito=e;
 }
 }
 
-document.getElementById("estadisticas").innerHTML=
-`📊 Participantes: ${datos.length}<br><br>
+document.getElementById("estadisticas").innerHTML =
+`📊 Participantes: ${datos.length}<br>
 🏆 Favorito: ${favorito || "Sin datos"} (${votos})`;
 
 }catch(err){
-
 console.error(err);
-
-document.getElementById("estadisticas").innerHTML =
-"❌ Error cargando estadísticas";
-
 }
 
 }

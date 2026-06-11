@@ -1,0 +1,1 @@
+window.API_BASE = "https://pollamundialista2026-api.onrender.com";

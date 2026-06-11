@@ -12,120 +12,70 @@
 
 <div class="bannerPrincipal">
 
-<h1>
-🏆 Polla Mundialista Familiar 2026
-</h1>
+<h1>🏆 Polla Mundialista Familiar 2026</h1>
 
-<p>
-
-Predice el Mundial y compite por el primer lugar.
-
-</p>
+<p>Predice el Mundial y compite por el primer lugar.</p>
 
 </div>
 
 <div class="avisoImportante">
-
 ⏳ Las predicciones se cerrarán al inicio del Mundial.
-
 Una vez registradas no podrán modificarse.
-
 </div>
 
 <div id="contadorParticipantes">
-
 Cargando participantes...
-
 </div>
 
 <div id="liderActual">
-
 🏆 Cargando líder...
-
 </div>
 
 <div id="estadisticas">
-
 📊 Cargando estadísticas...
-
 </div>
 
 <div class="puntosCard">
-
 <h2>🏅 Premios</h2>
-
 <p>🥇 Campeón de la polla</p>
-
 <p>🥈 Segundo lugar</p>
-
 <p>🥉 Tercer lugar</p>
-
 </div>
 
 <div class="puntosCard">
-
 <h2>Sistema de Puntuación</h2>
-
 <p>🥇 Primer lugar de grupo correcto: 10 puntos</p>
-
 <p>🥈 Segundo lugar de grupo correcto: 10 puntos</p>
-
 <p>🏆 Campeón correcto: 50 puntos</p>
-
 <p>🥈 Subcampeón correcto: 35 puntos</p>
-
 <p>🥉 Tercer lugar correcto: 25 puntos</p>
-
 <p>4️⃣ Cuarto lugar correcto: 20 puntos</p>
-
 <p>⭐ Balón de Oro: 15 puntos</p>
-
 <p>⚽ Bota de Oro: 15 puntos</p>
-
 <p>🧤 Guante de Oro: 15 puntos</p>
-
 </div>
 
 <div class="menu">
-
 <a href="index.html">Predicciones</a>
-
 <a href="ranking.html">Ranking</a>
-
 <a href="predicciones.html">Ver Predicciones</a>
-
 <a href="admin.html">Administrador</a>
-
 <a href="reglas.html">Reglas</a>
-
 </div>
 
 <input id="nombre" placeholder="Nombre completo">
-
 <input id="apodo" placeholder="Apodo">
 
-<div id="progreso">
-
-Completado: 0%
-
-</div>
+<div id="progreso">Completado: 0%</div>
 
 <div id="grupos"></div>
 
 <h2>Fase Final</h2>
 <h2>Premios Individuales</h2>
 
-<input
-id="balonoro"
-placeholder="Balón de Oro">
-
-<input
-id="botaoro"
-placeholder="Bota de Oro">
-
-<input
-id="guanteoro"
-placeholder="Guante de Oro">
+<input id="balonoro" placeholder="Balón de Oro">
+<input id="botaoro" placeholder="Bota de Oro">
+<input id="guanteoro" placeholder="Guante de Oro">
 
 <label>🏆 Campeón del Mundo</label>
 <select id="campeon"></select>
@@ -139,14 +89,12 @@ placeholder="Guante de Oro">
 <label>4️⃣ Cuarto Lugar</label>
 <select id="cuarto"></select>
 
-<button onclick="guardar()">
-Guardar Predicciones
-</button>
+<button onclick="guardar()">Guardar Predicciones</button>
 
+<!-- 🔥 ORDEN CORRECTO DE SCRIPTS -->
+<script src="js/config.js"></script>
 <script src="js/app.js"></script>
-
 <script src="js/lider.js"></script>
-
 <script src="js/estadisticas.js"></script>
 
 </body>

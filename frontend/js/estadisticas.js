@@ -1,10 +1,8 @@
-const API_BASE = "https://pollamundialista2026-api.onrender.com";
-
 async function cargarEstadisticas(){
 
 try{
 
-const r = await fetch(`${API_BASE}/api/predicciones`);
+const r = await fetch(`${window.API_BASE}/api/predicciones`);
 const datos = await r.json();
 
 let campeones={};
@@ -15,10 +13,7 @@ const p = typeof j.predicciones === "string"
 ? JSON.parse(j.predicciones)
 : j.predicciones;
 
-if(!campeones[p.campeon]){
-campeones[p.campeon]=0;
-}
-
+if(!campeones[p.campeon]) campeones[p.campeon]=0;
 campeones[p.campeon]++;
 
 });
@@ -26,26 +21,22 @@ campeones[p.campeon]++;
 let favorito="";
 let votos=0;
 
-for(const equipo in campeones){
-if(campeones[equipo]>votos){
-votos=campeones[equipo];
-favorito=equipo;
+for(const e in campeones){
+if(campeones[e]>votos){
+votos=campeones[e];
+favorito=e;
 }
 }
 
-document.getElementById("estadisticas").innerHTML=`
-📊 Participantes: ${datos.length}
-<br><br>
-🏆 Favorito al título: ${favorito || "Sin datos"}
-<br>
-(${votos} votos)
-`;
+document.getElementById("estadisticas").innerHTML=
+`📊 Participantes: ${datos.length}<br><br>
+🏆 Favorito: ${favorito || "Sin datos"} (${votos})`;
 
 }catch(err){
 
 console.error(err);
 
-document.getElementById("estadisticas").innerHTML=
+document.getElementById("estadisticas").innerHTML =
 "❌ Error cargando estadísticas";
 
 }

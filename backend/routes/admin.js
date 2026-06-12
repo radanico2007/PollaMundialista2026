@@ -93,13 +93,35 @@ res.status(500).json(err);
 
 });
 
-/* 🔥 NUEVO: RESET TOTAL */
+/* 🔥 RESET TOTAL */
 router.post("/reset", async(req,res)=>{
 
 try{
 
 await db.query(`DELETE FROM participants`);
 await db.query(`DELETE FROM resultados`);
+
+res.json({ok:true});
+
+}catch(err){
+res.status(500).json(err);
+}
+
+});
+
+/* 🟢 NUEVO: EDITAR PARTICIPANTE */
+router.post("/editar-participante", async(req,res)=>{
+
+try{
+
+const {id,nombre,apodo} = req.body;
+
+await db.query(`
+UPDATE participants
+SET nombre=$1,
+apodo=$2
+WHERE id=$3
+`,[nombre,apodo,id]);
 
 res.json({ok:true});
 

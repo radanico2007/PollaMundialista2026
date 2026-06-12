@@ -55,7 +55,7 @@ const usuarios = await db.query(`SELECT * FROM participants`);
 
 for(const u of usuarios.rows){
 
-const p = u.predicciones; // 👈 FIX IMPORTANTE (YA ES JSONB)
+const p = u.predicciones;
 
 let puntos=0;
 
@@ -84,6 +84,22 @@ WHERE id=$2
 `,[puntos,u.id]);
 
 }
+
+res.json({ok:true});
+
+}catch(err){
+res.status(500).json(err);
+}
+
+});
+
+/* 🔥 NUEVO: RESET TOTAL */
+router.post("/reset", async(req,res)=>{
+
+try{
+
+await db.query(`DELETE FROM participants`);
+await db.query(`DELETE FROM resultados`);
 
 res.json({ok:true});
 

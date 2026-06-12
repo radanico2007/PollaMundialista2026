@@ -16,17 +16,34 @@ const p = typeof j.predicciones === "string"
 
 let html = `
 <div class="card">
+
 <h2>${j.nombre}</h2>
 <p><b>Apodo:</b> ${j.apodo}</p>
 <p><b>Puntos:</b> ${j.puntos}</p>
 
-<h3>Fase Final</h3>
-<p>🏆 Campeón: ${p.campeon||"-"}</p>
-<p>🥈 Subcampeón: ${p.subcampeon||"-"}</p>
-<p>🥉 Tercero: ${p.tercero||"-"}</p>
-<p>4️⃣ Cuarto: ${p.cuarto||"-"}</p>
-</div>
+<h3>🏆 Fase Final</h3>
+
+<p>Campeón: ${p.campeon || "-"}</p>
+<p>Subcampeón: ${p.subcampeon || "-"}</p>
+<p>Tercero: ${p.tercero || "-"}</p>
+<p>Cuarto: ${p.cuarto || "-"}</p>
+
+<h3>⚽ Fase de Grupos</h3>
 `;
+
+const grupos = ["A","B","C","D","E","F","G","H","I","J","K","L"];
+
+grupos.forEach(g=>{
+html += `
+<p>
+Grupo ${g}:
+${p[`grupo${g}1`] || "-"} /
+${p[`grupo${g}2`] || "-"}
+</p>
+`;
+});
+
+html += `</div>`;
 
 contenedor.innerHTML += html;
 

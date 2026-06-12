@@ -131,4 +131,50 @@ res.status(500).json(err);
 
 });
 
+router.post("/editar-premios", async(req,res)=>{
+
+try{
+
+const {
+id,
+balonoro,
+botaoro,
+guanteoro
+} = req.body;
+
+const usuario = await db.query(`
+SELECT predicciones
+FROM participants
+WHERE id=$1
+`,[id]);
+
+if(usuario.rows.length===0){
+return res.status(404).json({
+error:"Participante no encontrado"
+});
+}
+
+const p = usuario.rows[0].predicciones;
+
+p.balonoro = balonoro;
+p.botaoro = botaoro;
+p.guanteoro = guanteoro;
+
+await db.query(`
+UPDATE participants
+SET predicciones=$1
+WHERE id=$2
+`,[
+JSON.stringify(p),
+id
+]);
+
+res.json({ok:true});
+
+}catch(err){
+res.status(500).json(err);
+}
+
+});
+
 module.exports = router;

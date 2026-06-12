@@ -28,7 +28,13 @@ let html = `
 <p>Tercero: ${p.tercero || "-"}</p>
 <p>Cuarto: ${p.cuarto || "-"}</p>
 
-<h3>⚽ Fase de Grupos</h3>
+<h3>⚽ Goleadores</h3>
+
+<p>⭐ Balón de Oro: ${p.balonoro || "-"}</p>
+<p>⚽ Bota de Oro: ${p.botaoro || "-"}</p>
+<p>🧤 Guante de Oro: ${p.guanteoro || "-"}</p>
+
+<h3>🌍 Fase de Grupos</h3>
 `;
 
 const grupos = ["A","B","C","D","E","F","G","H","I","J","K","L"];

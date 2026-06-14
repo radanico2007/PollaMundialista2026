@@ -63,19 +63,32 @@ const grupos=["A","B","C","D","E","F","G","H","I","J","K","L"];
 
 grupos.forEach(g=>{
 
-if(p[`grupo${g}1`]===oficial[`grupo${g}1`]) puntos+=10;
-if(p[`grupo${g}2`]===oficial[`grupo${g}2`]) puntos+=10;
+if(
+oficial[`grupo${g}1`] &&
+oficial[`grupo${g}1`]!=="No definido" &&
+p[`grupo${g}1`]===oficial[`grupo${g}1`]
+){
+puntos+=10;
+}
+
+if(
+oficial[`grupo${g}2`] &&
+oficial[`grupo${g}2`]!=="No definido" &&
+p[`grupo${g}2`]===oficial[`grupo${g}2`]
+){
+puntos+=10;
+}
 
 });
 
-if(p.campeon===oficial.campeon) puntos+=50;
-if(p.subcampeon===oficial.subcampeon) puntos+=35;
-if(p.tercero===oficial.tercero) puntos+=25;
-if(p.cuarto===oficial.cuarto) puntos+=20;
+if(oficial.campeon!=="No definido" && p.campeon===oficial.campeon) puntos+=50;
+if(oficial.subcampeon!=="No definido" && p.subcampeon===oficial.subcampeon) puntos+=35;
+if(oficial.tercero!=="No definido" && p.tercero===oficial.tercero) puntos+=25;
+if(oficial.cuarto!=="No definido" && p.cuarto===oficial.cuarto) puntos+=20;
 
-if(p.balonoro===oficial.balonoro) puntos+=15;
-if(p.botaoro===oficial.botaoro) puntos+=15;
-if(p.guanteoro===oficial.guanteoro) puntos+=15;
+if(oficial.balonoro!=="No definido" && p.balonoro===oficial.balonoro) puntos+=15;
+if(oficial.botaoro!=="No definido" && p.botaoro===oficial.botaoro) puntos+=15;
+if(oficial.guanteoro!=="No definido" && p.guanteoro===oficial.guanteoro) puntos+=15;
 
 await db.query(`
 UPDATE participants

@@ -7,10 +7,7 @@ document.getElementById(
 
 if(pass!=="Mundial2026"){
 
-alert(
-"Contraseña incorrecta"
-);
-
+alert("Contraseña incorrecta");
 return;
 
 }
@@ -27,18 +24,18 @@ document.getElementById(
 
 const grupos={
 
-A:["México","Sudáfrica","Corea del Sur","Chequia"],
-B:["Canadá","Bosnia y Herzegovina","Catar","Suiza"],
-C:["Brasil","Marruecos","Haití","Escocia"],
-D:["Estados Unidos","Paraguay","Australia","Turquía"],
-E:["Alemania","Curazao","Costa de Marfil","Ecuador"],
-F:["Países Bajos","Japón","Suecia","Túnez"],
-G:["Bélgica","Egipto","Irán","Nueva Zelanda"],
-H:["España","Cabo Verde","Arabia Saudita","Uruguay"],
-I:["Francia","Senegal","Irak","Noruega"],
-J:["Argentina","Argelia","Austria","Jordania"],
-K:["Portugal","RD Congo","Uzbekistán","Colombia"],
-L:["Inglaterra","Croacia","Ghana","Panamá"]
+A:["No definido","México","Sudáfrica","Corea del Sur","Chequia"],
+B:["No definido","Canadá","Bosnia y Herzegovina","Catar","Suiza"],
+C:["No definido","Brasil","Marruecos","Haití","Escocia"],
+D:["No definido","Estados Unidos","Paraguay","Australia","Turquía"],
+E:["No definido","Alemania","Curazao","Costa de Marfil","Ecuador"],
+F:["No definido","Países Bajos","Japón","Suecia","Túnez"],
+G:["No definido","Bélgica","Egipto","Irán","Nueva Zelanda"],
+H:["No definido","España","Cabo Verde","Arabia Saudita","Uruguay"],
+I:["No definido","Francia","Senegal","Irak","Noruega"],
+J:["No definido","Argentina","Argelia","Austria","Jordania"],
+K:["No definido","Portugal","RD Congo","Uzbekistán","Colombia"],
+L:["No definido","Inglaterra","Croacia","Ghana","Panamá"]
 
 };
 
@@ -77,17 +74,11 @@ contenedor.innerHTML+=`
 
 <label>1° Oficial</label>
 
-${selectHTML(
-`grupo${g}1`,
-grupos[g]
-)}
+${selectHTML(`grupo${g}1`,grupos[g])}
 
 <label>2° Oficial</label>
 
-${selectHTML(
-`grupo${g}2`,
-grupos[g]
-)}
+${selectHTML(`grupo${g}2`,grupos[g])}
 
 </div>
 
@@ -101,7 +92,7 @@ contenedor.innerHTML+=`
 
 <label>${titulo}</label>
 
-<input id="${id}">
+<input id="${id}" value="No definido">
 
 `;
 
@@ -116,13 +107,10 @@ agregar("balonoro","Balón de Oro");
 agregar("botaoro","Bota de Oro");
 agregar("guanteoro","Guante de Oro");
 
-async function guardarResultado(
-clave,
-valor
-){
+async function guardarResultado(clave,valor){
 
 await fetch(
-"https://pollamundialista2026-api.onrender.com",
+"https://pollamundialista2026-api.onrender.com/api/admin/resultado",
 {
 method:"POST",
 headers:{
@@ -149,16 +137,12 @@ for(const g of letras){
 
 await guardarResultado(
 `grupo${g}1`,
-document.getElementById(
-`grupo${g}1`
-).value
+document.getElementById(`grupo${g}1`).value
 );
 
 await guardarResultado(
 `grupo${g}2`,
-document.getElementById(
-`grupo${g}2`
-).value
+document.getElementById(`grupo${g}2`).value
 );
 
 }
@@ -183,14 +167,12 @@ document.getElementById(c).value
 }
 
 await fetch(
-"https://pollamundialista2026-api.onrender.com",
+"https://pollamundialista2026-api.onrender.com/api/admin/recalcular",
 {
 method:"POST"
 }
 );
 
-alert(
-"Resultados guardados"
-);
+alert("Resultados guardados y ranking actualizado");
 
 }
